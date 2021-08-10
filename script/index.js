@@ -1,17 +1,21 @@
 const manifest = require('./manifest');
 const fs = require('fs');
-
-function Root(spr) {
-	if (manifest.root && spr != undefined) {
-		const vars = Object.keys(manifest.root).map(e => `${spr}    --${e}: ${manifest.root[e]};`).join(`\n`);
-		return `${spr}:root{\n${vars}\n${spr}}`
+function VersionWarning(spr) {
+	if (manifest.Has_Version_warning === true) {
+		return `    /* Do not touch */\n    ${spr}--version-${manifest.version.replaceAll('.', '-')}: none;`
 	} else {
-		if (manifest.root) {
-            const vars = Object.keys(manifest.root).map(e => `    --${e}: ${manifest.root[e]};`).join(`\n`);
-            return `:root{\n${vars}\n}`
-        }
-        else {return ''}
+		return ''
 	}
+}
+function Root() {
+	return manifest.root === undefined ? '' : Object.keys(manifest.root).map(e => `    --${e}: ${manifest.root[e]};`).join(`\n`)
+}
+function BuildRoot(spr) {
+	const root_ = `${spr}:root{${Root() == '' ? '' : `\n`}${spr}${Root()}${VersionWarning() == '' ? '' : `\n`}${spr}${VersionWarning(spr)}\n${spr}}`
+	if (root_ == ':root{\n}') 
+		return ''
+	else
+		return root_
 }
 const meta = {
 	author: Object.keys(manifest.author).map(e => manifest.author[e]).join(' & '),
@@ -21,11 +25,11 @@ const meta = {
 const theme = {
 	BetterDiscord: {
 		0: `./support/${manifest.name}.theme.css`,
-		1: `/**\n * @name ${manifest.name}\n * @author  ${meta.author} \n * @authorId ${meta.id} \n * @version ${manifest.version} \n * @description ${manifest.description} \n * @source ${manifest.source} \n * @website ${manifest.website}\n */\n\n${meta.import}${Root() === `` ? `` : `\n\n`}${Root()}`
+		1: `/**\n * @name ${manifest.name}\n * @author  ${meta.author} \n * @authorId ${meta.id} \n * @version ${manifest.version} \n * @description ${manifest.description} \n * @source ${manifest.source} \n * @website ${manifest.website}\n */\n\n${meta.import}${BuildRoot('') === `` ? `` : `\n\n`}${BuildRoot('')}`
 	},
 	Stylus: {
 		0: `./support/index.user.css`,
-		1: `@-moz-document domain("discord.com") {\n    /* ==UserStyle==\n    @name           ${meta.author} \n    @namespace      ${manifest.source}\n    @version        ${manifest.version}\n    @description    ${manifest.description}\n    @author         ${Object.keys(manifest.author).map(e => manifest.author[e]).join(' ')} \n    ==/UserStyle== */\n\n    ${meta.import}${Root() === `` ? `` : `\n\n`}${Root("	")}\n}`
+		1: `@-moz-document domain("discord.com") {\n    /* ==UserStyle==\n    @name           ${meta.author} \n    @namespace      ${manifest.source}\n    @version        ${manifest.version}\n    @description    ${manifest.description}\n    @author         ${Object.keys(manifest.author).map(e => manifest.author[e]).join(' ')} \n    ==/UserStyle== */\n\n    ${meta.import}${BuildRoot('') === `` ? `` : `\n\n`}${BuildRoot('    ')}\n}`
 	},
 	Powercord: {
 		0: `./powercord_manifest.json`,

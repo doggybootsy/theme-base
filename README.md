@@ -55,7 +55,7 @@ You can add as many in the brackets
 This is just your discord id
 ```js
 module.exports = { 
-    author: ["Doggybootsy"]
+    author_id: ["515780151791976453"],
 };
 ```
 # theme
@@ -91,7 +91,16 @@ module.exports = {
 Nothing much, used for gm
 ```js
 module.exports = { 
-    website: "https://doggybootsy.github.io/"
+    tags: [
+        "Basic"
+    ],
+};
+```
+# Has_Version_warning
+Adds a quick version warning into the root
+```js
+module.exports = { 
+    Has_Version_warning: false,
 };
 ```
 # Root
