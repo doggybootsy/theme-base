@@ -1,0 +1,11 @@
+{
+  "name": "theme-base",
+  "version": "1.0.0",
+  "description": "The theme base I use",
+  "main": "./script/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Doggybootsy",
+  "license": "MIT"
+}
