@@ -1,5 +1,6 @@
 const manifest = require('./manifest');
 const fs = require('fs');
+const licenses = require('./licenses')
 
 // Root builder
 function BuildRoot(spr) {
@@ -45,17 +46,12 @@ Object.keys(theme).forEach(e => {
 	});
 })
 // Generate license
-if (!fs.existsSync(`./licenses/${manifest.license}.txt`)) {
-	fs.readdir(`./licenses/`, (err, files) => {
-		console.error(`\n${manifest.license} is not a valid license or its not added yet, all the licenses added are ${files.map(file => `${file.replace('.txt','')}`).join(', ')}\n`);
-	})
+if (!licenses[manifest.license.toLowerCase()]) {
+	console.error(`\n${manifest.license} is not a valid license or its not added yet, all the licenses added are ${Object.keys(licenses).map(file => file).join(', ')}\n`);
 }
 else {
-	fs.readFile(`./licenses/${manifest.license}.txt`, 'utf8', function(err, data){
-		if (err) console.log(err)
-		fs.writeFile(`./LICENSE`, data.replace('[Username]', meta.author).replace('[yyyy]', new Date().getFullYear()), function(err) {
-			if (err) return console.log(err)
-		});
+	fs.writeFile(`./LICENSE`, licenses[manifest.license.toLowerCase()].replace('[Username]', meta.author).replace('[yyyy]', new Date().getFullYear()), function(err) {
+		if (err) return console.log(err)
 	});
 }
 // Compile 
