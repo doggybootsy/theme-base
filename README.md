@@ -1,9 +1,12 @@
+# Usage
+Look at the usage file
+
 # Using
 1. You need npm installed
-2. Make a folder for your theme and insert the script folder inside of it
-3. Delete the `package.json`
-3. Run `npm init` inside your themes folder and fill out everything
+2. add your code to the theme-base folder
+3. Run `npm i`
 4. Go to `./script/manifest.js` and use at the following template inside the file (more detials look at lower in the readme.md)
+5. Do `node .` and it will generate the files
 
 # manifest.js
 ### Base template
@@ -25,19 +28,21 @@ module.exports = {
 };
 ```
 ### name
-The Github repo name
+Themes name
 ```js
 module.exports = { 
     name: "Theme-base"
 };
 ```
 ### description
+Themes description
 ```js
 module.exports = { 
     description: "The theme base I use"
 };
 ```
 ### version
+Themes version
 ```js
 module.exports = { 
     description: "1.0.0"
@@ -63,9 +68,15 @@ module.exports = {
 This is the path to the theme folder
 
 `./` Is needed at the beginning
+
+`0: ` Is the raw file (This tool compiles `sass`/`scss` this can be a `css` file)
+`1: ` Is the location for the `css` (And the location to compile the `sass`/`scss`)
 ```js
 module.exports = { 
-    theme: "./src/compiled.css",
+    theme: {
+        0: "./src/index.scss",
+        1: "./src/compiled.css"
+    }
 };
 ```
 ### license

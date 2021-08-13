@@ -1,6 +1,12 @@
-.parent {
-    background: red;
+.grandparent {
+    background-color: blue;
     .child {
-        background: blue;
+        background-color: red;
+    }
+    .parent {
+        background-color: pink;
+        .child {
+            background-color: purple;
+        }
     }
 }

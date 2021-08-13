@@ -2,10 +2,14 @@
   "name": "theme-base",
   "version": "1.0.0",
   "description": "The theme base I use",
-  "main": "./script/index.js",
+  "main": "script/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "node": "node script/index.js"
   },
   "author": "Doggybootsy",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "sass": "^1.37.5"
+  }
 }
