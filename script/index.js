@@ -63,7 +63,7 @@ const theme = {
 	},
 	Stylus: {
 		0: `./support/index.user.css`,
-		1: `@-moz-document domain("discord.com") {\n    /* ==UserStyle==\n    @name           ${meta.author} \n    @namespace      ${manifest.source}\n    @version        ${manifest.version}\n    @description    ${manifest.description}\n    @author         ${Object.keys(manifest.author).map(e => manifest.author[e]).join(' ')} \n    ==/UserStyle== */\n\n    ${meta.import}${BuildRoot('') === `` ? `` : `\n\n`}${BuildRoot('    ')}\n}`
+		1: `@-moz-document domain("discord.com") {\n    /* ==UserStyle==\n    @name           ${manifest.name} \n    @namespace      ${manifest.source}\n    @version        ${manifest.version}\n    @description    ${manifest.description}\n    @author         ${meta.author} \n    ==/UserStyle== */\n\n    ${meta.import}${BuildRoot('') === `` ? `` : `\n\n`}${BuildRoot('    ')}\n}`
 	},
 	Powercord: {
 		0: `./powercord_manifest.json`,
@@ -88,5 +88,5 @@ if (!licenses[manifest.license.toLowerCase()]) {
 else {
 	fs.writeFile(`./LICENSE`, licenses[manifest.license.toLowerCase()].replace('[Username]', meta.author).replace('[yyyy]', new Date().getFullYear()), function(err) {
 		if (err) return log(`error`,err)
-	});
+	})
 }
